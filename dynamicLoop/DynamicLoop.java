@@ -31,6 +31,7 @@ public class DynamicLoop {
 	private static String host;
 	private static String passwd ;
 	private static String ip ;
+	private static String[] ignoreIps;
 	private static long interval = 0;
 	public static void main(String[] args) {
 		// config :
@@ -45,6 +46,7 @@ public class DynamicLoop {
 		passwd = h.get("password");
 		interval = Long.parseLong(h.get("interval"));
 		logfile = h.get("logFile");
+		ignoreIps = h.get("ignoreIps").split(";");
 		d.createFile(logfile);
 		Logger log = d.loginit(logfile);
 		while (true) {
@@ -138,17 +140,45 @@ public class DynamicLoop {
 	}
 
 	private static String getIp() {
-		String ret = null;
-		InetAddress addr = null;
-		try {
-			addr = InetAddress.getLocalHost();
-			ret = addr.getHostAddress();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			return null;
+			String ret = null;
+			try {
+				for (Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces(); e.hasMoreElements();) {
+					NetworkInterface ni = e.nextElement();
+					String name = ni.getName();
+					boolean br = false;
+					if (!name.contains("docker") && !name.contains("lo")) {
+						for (Enumeration<InetAddress> enumIpAddrs = ni.getInetAddresses(); enumIpAddrs.hasMoreElements();) {
+							InetAddress addr = enumIpAddrs.nextElement();
+							br = false;
+							if (!addr.isLoopbackAddress()) {
+								String ipAddress = addr.getHostAddress().toString();
+								for (String s : ignoreIps) {
+									if (ipAddress.contains(s.trim())) {
+										br = true;
+										break;
+									}
+								}
+								if (br) {
+									continue;
+								} else {
+									ret = ipAddress;
+									break;
+								}
+
+							}
+						}
+					}
+					if (br) {
+						continue;
+					} else {
+						break;
+					}
+				}
+			} catch (Exception e) {
+
+			}
+			return ret;
 		}
-		return ret;
-	}
 
 	private HashMap<String, String> getConfig(String filename) {
 		Properties pps = new Properties();
