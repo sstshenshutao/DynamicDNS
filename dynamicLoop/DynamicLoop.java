@@ -153,7 +153,7 @@ public class DynamicLoop {
 							if (!addr.isLoopbackAddress()) {
 								String ipAddress = addr.getHostAddress().toString();
 								for (String s : ignoreIps) {
-									if (ipAddress.contains(s.trim())) {
+									if (ipAddress.matches(s.trim())) {
 										br = true;
 										break;
 									}
