@@ -17,7 +17,7 @@ A very very light-weight Java DynamicDNS, easy to use.
 2.download "SSTDynamicDNS" from github
 
 	2.1 change Filedir
-		cd SSTDynamicDNS
+		cd DynamicDNS
 
 	2.2 compile
 		javac -cp ./lib/commons-logging-1.2.jar:./lib/httpcore-4.4.9.jar:./lib/commons-codec-1.10.jar:./lib/httpclient-4.5.5.jar dynamicLoop/DynamicLoop.java
