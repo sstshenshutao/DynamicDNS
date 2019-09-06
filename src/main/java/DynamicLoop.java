@@ -27,6 +27,12 @@ import org.apache.http.util.EntityUtils;
 public class DynamicLoop {
 
   public static void main (String[] args) {
+    try {
+      Thread.sleep(60000);
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     // config :
     Config config = null;
     if (args != null && args.length > 0) {
