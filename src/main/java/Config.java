@@ -64,6 +64,7 @@ public class Config {
   }
 
   private String host;
+  private String domain;
   private String password;
   private long interval = 0;
   private String logFile;
@@ -78,10 +79,19 @@ public class Config {
   private Config () {
   }
 
+  public String getDomain () {
+    return domain;
+  }
+
+  public void setDomain (String domain) {
+    this.domain = domain;
+  }
+
   public static Config fromProperties (String configFile) {
     HashMap<String, String> h = getConfig(configFile);
     Config ret = new Config();
     ret.host = h.get("host");
+    ret.domain = h.get("domain");
     ret.password = h.get("password");
     ret.interval = Long.parseLong(h.get("interval"));
     ret.logFile = h.get("logFile");

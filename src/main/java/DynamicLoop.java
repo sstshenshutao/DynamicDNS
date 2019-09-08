@@ -50,9 +50,9 @@ public class DynamicLoop {
         stableIP = newIp;
         CloseableHttpClient httpclient = HttpClients.createDefault();
         String getInfo =
-          "https://dynamicdns.park-your-domain.com/update?" + "host=@&domain=" + config.getHost() + "&" + "password=" + config.getPassword() + "&"
-            + "ip=" + newIp;
-        logging(log, "changing:"+getInfo);
+          "https://dynamicdns.park-your-domain.com/update?" + "host=" + config.getHost() + "&domain=" + config
+            .getDomain() + "&" + "password" + "=" + config.getPassword() + "&" + "ip=" + newIp;
+        logging(log, "changing:" + getInfo);
         HttpGet httpGet = new HttpGet(getInfo);
         CloseableHttpResponse response1 = null;
         try {
@@ -64,7 +64,7 @@ public class DynamicLoop {
         try {
           logging(log, response1.getStatusLine().toString());
           HttpEntity entity1 = response1.getEntity();
-          logging(log, "http return:"+entity1.toString());
+          logging(log, "http return:" + entity1.toString());
           // do something useful with the response body
           // and ensure it is fully consumed
           EntityUtils.consume(entity1);
