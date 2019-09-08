@@ -50,8 +50,8 @@ public class DynamicLoop {
         stableIP = newIp;
         CloseableHttpClient httpclient = HttpClients.createDefault();
         String getInfo =
-          "https://dynamicdns.park-your-domain.com/update?" + "host=" + config.getHost() + "&domain=" + config
-            .getDomain() + "&" + "password" + "=" + config.getPassword() + "&" + "ip=" + newIp;
+          "https://dynamicdns.park-your-domain.com/update?" + "host=" + config.getHost().trim() + "&domain=" + config
+            .getDomain().trim() + "&" + "password" + "=" + config.getPassword().trim() + "&" + "ip=" + newIp.trim();
         logging(log, "changing:" + getInfo);
         HttpGet httpGet = new HttpGet(getInfo);
         CloseableHttpResponse response1 = null;
