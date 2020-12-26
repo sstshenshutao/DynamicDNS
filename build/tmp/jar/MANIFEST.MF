@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Title: ddns
+Implementation-Version: 1.0.0
+Class-Path: . lib/httpclient-4.5.5.jar lib/gson-2.8.5.jar lib/httpcore
+ -4.4.9.jar lib/commons-logging-1.2.jar lib/commons-codec-1.10.jar
+Main-Class: DynamicLoop
+
